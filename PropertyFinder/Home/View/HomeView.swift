@@ -12,11 +12,8 @@ struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var vm: GroceryViewModel
 
-    // SwiftUI creates @StateObject once; we initialise via an init trick
-    // so we can pass modelContext before the view body runs.
     init() {
         // Temporary container used only during initialisation.
-        // The real context is injected via onAppear / task.
         let config = ModelConfiguration(isStoredInMemoryOnly: false)
         let container = try! ModelContainer(for: GroceryItem.self, configurations: config)
         _vm = StateObject(wrappedValue: GroceryViewModel(modelContext: container.mainContext))
